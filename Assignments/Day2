@@ -1,0 +1,146 @@
+Linux Day 2 Assignments:
+Case study 1 – Student Result
+Create student_result.sh
+#!/bin/bash
+# Student Result Evaluation System
+# Check command-line arguments
+if [ $# -ne 5 ]
+then
+echo "Usage: ./student_result.sh <Name> <Mark1> <Mark2> <Mark3> <Mark4>"
+exit 1
+fi
+name=$1
+m1=$2
+m2=$3
+m3=$4
+m4=$5
+# Calculate total and percentage
+total=$((m1 + m2 + m3 + m4))
+percentage=$((total / 4))
+# Determine result
+if [ $percentage -ge 40 ]
+then
+result="PASS"
+else
+result="FAIL"
+fi
+# Assign grade
+if [ $percentage -ge 90 ]
+then
+grade="A+"
+elif [ $percentage -ge 80 ]
+then
+grade="A"
+elif [ $percentage -ge 70 ]
+then
+grade="B"
+elif [ $percentage -ge 60 ]
+then
+grade="C"
+elif [ $percentage -ge 40 ]
+then
+grade="D"
+else
+grade="F"
+fi
+# Display result
+echo "-----------------------------"
+echo "Student Result Evaluation"
+echo "-----------------------------"
+echo "Student Name : $name"
+echo "Marks : $m1 $m2 $m3 $m4"
+echo "Total Marks : $total"
+echo "Percentage : $percentage%"
+echo "Result : $result"
+echo "Grade : $grade"
+Run using ./student_result.sh
+Case Study 2 – Employee Attendance
+Create attendance.sh
+#!/bin/bash
+# Employee Attendance Validation System
+echo "Employee Attendance Validation"
+# Accept employee details
+echo "Enter Employee Name:"
+read name
+echo "Enter Employee ID:"
+read id
+echo "Enter Working Hours:"
+read hours
+normal_hours=8
+# Check working hours
+if [ $hours -gt $normal_hours ]
+then
+overtime=$((hours - normal_hours))
+echo "Employee Name : $name"
+echo "Employee ID : $id"
+echo "Working Hours : $hours"
+echo "Overtime Hours: $overtime"
+echo "Status : Overtime"
+elif [ $hours -eq $normal_hours ]
+then
+echo "Employee Name : $name"
+echo "Employee ID : $id"
+echo "Working Hours : $hours"
+echo "Status : Full Day"
+else
+echo "Employee Name : $name"
+echo "Employee ID : $id"
+echo "Working Hours : $hours"
+echo "Status : Less than Required Hours"
+Fi
+Run using ./attendance.sh
+Case Study 3 – Online food delivery:
+Create food_order.sh
+#!/bin/bash
+# Online Food Order Validation System
+food=$1
+quantity=$2
+# Validate command-line arguments
+if [ $# -ne 2 ]
+then
+echo "Usage: ./food_order.sh <FoodItem> <Quantity>"
+exit 1
+fi
+# Validate food item and set price
+case $food in
+Pizza)
+price=200
+;;
+Burger)
+price=150
+;;
+Biryani)
+price=250
+;;
+*)
+echo "Invalid Food Item"
+exit 1
+;;
+esac
+# Check quantity
+if [ $quantity -lt 1 ] || [ $quantity -gt 10 ]
+then
+echo "Quantity should be between 1 and 10"
+exit 1
+fi
+# Calculate total amount
+total=$((price * quantity))
+# Apply delivery charge
+if [ $total -ge 1000 ]
+then
+delivery=0
+else
+delivery=50
+fi
+final=$((total + delivery))
+# Display order summary
+echo "-----------------------------"
+echo "Online Food Order Summary"
+echo "-----------------------------"
+echo "Food Item : $food"
+echo "Quantity : $quantity"
+echo "Price per Item : Rs.$price"
+echo "Order Amount : Rs.$total"
+echo "Delivery Charge: Rs.$delivery"
+echo "Final Amount : Rs.$final"
+Run using ./food_order.sh

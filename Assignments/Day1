@@ -1,1 +1,168 @@
-
+Linux Day 1 Assignments: Log_retrevial:
+Create system.log
+INFO: System Started
+ERROR: Disk Space Low
+INFO: User Login
+WARNING: High CPU Usage
+ERROR: File Not Found
+INFO: Backup Completed
+ERROR: Network Failure
+Create log_analysis.sh
+#!/bin/bash
+create_folder()
+{
+mkdir -p processed_logs
+}
+find_errors()
+{
+echo "Extracting ERROR logs..."
+grep "ERROR" system.log > processed_logs/error_logs.txt
+}
+analyze_logs()
+{
+echo "Number of ERROR entries:"
+grep -c "ERROR" system.log
+echo
+echo "Log Summary:"
+awk -F':' '{print $1}' system.log
+}
+compress_logs()
+{
+tar -czf processed_logs/log_backup.tar.gz processed_logs
+echo "Logs compressed successfully."
+}
+display_files()
+{
+echo
+echo "Files in processed_logs:"
+ls processed_logs
+}
+# Main Program
+create_folder
+find_errors
+analyze_logs
+compress_logs
+display_files
+Run using ./log_analysis.sh
+Store Inventory case study:
+Create inventory.txt:
+101,Keyboard,25,800
+102,Mouse,8,500
+103,Monitor,15,12000
+104,Printer,3,8500
+105,Speaker,20,2500
+106,USB,5,600
+Create inventory_report.sh
+#!/bin/bash
+create_folder()
+{
+mkdir -p reports
+}
+display_inventory()
+{
+echo "------ Inventory Details ------"
+cat inventory.txt
+}
+low_stock()
+{
+echo
+echo "------ Low Stock Products ------"
+awk -F',' '$3<10 {print $0}' inventory.txt > reports/low_stock.txt
+cat reports/low_stock.txt
+}
+total_products()
+{
+echo
+echo "Total Products:"
+wc -l inventory.txt
+}
+replace_name()
+{
+sed 's/USB/Pen Drive/' inventory.txt > reports/updated_inventory.txt
+}
+compress_reports()
+{
+tar -czf reports/inventory_backup.tar.gz reports
+echo
+echo "Reports Archived Successfully."
+}
+display_reports()
+{
+echo
+echo "Files in reports folder:"
+ls reports
+}
+# Main Program
+create_folder
+display_inventory
+low_stock
+total_products
+replace_name
+compress_reports
+display_reports
+Run using ./inventory_report.sh
+Student marks case study:
+Create students.txt
+101,Hiranmai,85
+102,Ravi,42
+103,Priya,95
+104,Kiran,30
+105,Anitha,78
+106,Ramesh,55
+Create student_report.sh
+#!/bin/bash
+create_folder()
+{
+mkdir -p reports
+}
+display_students()
+{
+echo "------ Student Marks ------"
+cat students.txt
+}
+pass_students()
+{
+echo
+echo "------ Pass Students ------"
+awk -F',' '$3>=35 {print $0}' students.txt > reports/pass_students.txt
+cat reports/pass_students.txt
+}
+top_students()
+{
+echo
+echo "------ Students Scoring Above 80 ------"
+grep -E '8[0-9]|9[0-9]|100' students.txt > reports/top_students.txt
+cat reports/top_students.txt
+}
+update_marks()
+{
+sed 's/30/35/' students.txt > reports/updated_marks.txt
+}
+count_students()
+{
+echo
+echo "Total Students:"
+wc -l students.txt
+}
+compress_reports()
+{
+tar -czf reports/student_reports.tar.gz reports
+echo
+echo "Reports Archived Successfully."
+}
+display_reports()
+{
+echo
+echo "Files in reports folder:"
+ls reports
+}
+# Main Program
+create_folder
+display_students
+pass_students
+top_students
+update_marks
+count_students
+compress_reports
+display_reports
+Run using ./student_report.sh
